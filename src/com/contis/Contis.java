@@ -10,10 +10,11 @@ import java.util.Scanner;
 public class Contis {
 
     public static void main(String[] args) {
-        showMenu();
-        int input = readMenuInput();
-        routeMenu(input);
-        showMenu();
+        while (true) {
+            showMenu();
+            int input = readMenuInput();
+            routeMenu(input);
+        }
     }
 
     public static void showMenu() {
@@ -109,7 +110,7 @@ public class Contis {
             used[i] = true;
             //add the current permutation to the List
             if (outputString.toString().length() == 5) {
-                arrayList.add(outputString.toString());
+            arrayList.add(outputString.toString());
             }
             doPermute(in, outputString, used, inputLength, level + 1, arrayList);
             used[i] = false;

@@ -1,12 +1,10 @@
 package com.contis;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- *
  * @author Adeyemi Olaoye <yemexx1@gmail.com>
  */
 public class Contis {

@@ -1,6 +1,7 @@
 package com.contis;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -14,6 +15,7 @@ public class Contis {
         showMenu();
         int input = readMenuInput();
         routeMenu(input);
+//        compare("aaaaa", "abdee");
     }
 
     public static void showMenu() {
@@ -35,6 +37,19 @@ public class Contis {
             ArrayList permutations = getPermutations();
             for (Object permuation : permutations) {
                 System.out.println(permuation.toString());
+            }
+        } else if (menuIndex == 3) {
+            System.out.println("\n**Search Permutations**\n");
+            System.out.println("Enter key to search:");
+            Scanner sc = new Scanner(System.in);
+            String key = sc.nextLine();
+            System.out.println("Searching for key " + key);
+            ArrayList permutations = getPermutations();
+            int found = search(permutations, key);
+            if (found == -1) {
+                System.out.println("Key not found");
+            } else {
+                System.out.println("Key found at " + found);
             }
         } else if (menuIndex < 1 || menuIndex > 4) {
             System.out.println("Please enter number between 1 and 4");
@@ -87,4 +102,45 @@ public class Contis {
 
     }
 
+    public static int search(ArrayList permutations, String key) {
+        int start = 0;
+        int end = permutations.size() - 1;
+
+        while (start <= end) {
+            int middle = (start + end) / 2;
+            String middleStr = permutations.get(middle).toString();
+            
+            if (key.compareTo(middleStr) > 0) {
+                start = middle + 1;
+            } else if (key.compareTo(middleStr) < 0) {
+                end = middle - 1;
+            } else {
+                return middle;
+            }
+        }
+        return -1;
+    }
+
+    public static boolean compare(String key1, String key2) {
+        int value1 = computeKeyValue(key1);
+        System.out.println(value1);
+        int value2 = computeKeyValue(key2);
+        System.out.println(value2);
+        return value1 > value2;
+    }
+
+    private static int computeKeyValue(String key) {
+        HashMap<Character, Integer> map = new HashMap();
+        map.put('a', 1);
+        map.put('b', 2);
+        map.put('c', 3);
+        map.put('d', 4);
+        map.put('e', 5);
+
+        int value = 0;
+        for (int i = 0; i < key.length(); i++) {
+            value += map.get(key.charAt(i)) * (i + 1);
+        }
+        return value;
+    }
 }

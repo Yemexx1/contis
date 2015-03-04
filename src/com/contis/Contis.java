@@ -45,7 +45,7 @@ public class Contis {
             String key = sc.nextLine();
             System.out.println("Searching for key " + key);
             ArrayList permutations = getPermutations();
-            int found = search(permutations, key);
+            int found = searchRecursive(permutations, key, 0, permutations.size());
             if (found == -1) {
                 System.out.println("Key not found");
             } else {
@@ -109,7 +109,7 @@ public class Contis {
         while (start <= end) {
             int middle = (start + end) / 2;
             String middleStr = permutations.get(middle).toString();
-            
+
             if (key.compareTo(middleStr) > 0) {
                 start = middle + 1;
             } else if (key.compareTo(middleStr) < 0) {
@@ -121,26 +121,24 @@ public class Contis {
         return -1;
     }
 
-    public static boolean compare(String key1, String key2) {
-        int value1 = computeKeyValue(key1);
-        System.out.println(value1);
-        int value2 = computeKeyValue(key2);
-        System.out.println(value2);
-        return value1 > value2;
-    }
+    public static int searchRecursive(ArrayList permutations, String key, int start, int end) {
 
-    private static int computeKeyValue(String key) {
-        HashMap<Character, Integer> map = new HashMap();
-        map.put('a', 1);
-        map.put('b', 2);
-        map.put('c', 3);
-        map.put('d', 4);
-        map.put('e', 5);
-
-        int value = 0;
-        for (int i = 0; i < key.length(); i++) {
-            value += map.get(key.charAt(i)) * (i + 1);
+        int middle = (start + end) / 2;
+        if (middle >= permutations.size()) {
+            return -1;
         }
-        return value;
+        String middleStr = permutations.get(middle).toString();
+
+        if (key.compareTo(middleStr) > 0) {
+            start = middle + 1;
+            return searchRecursive(permutations, key, start, end);
+        } else if (key.compareTo(middleStr) < 0) {
+            end = middle - 1;
+            return searchRecursive(permutations, key, start, end);
+        } else {
+            return middle;
+        }
+
     }
+
 }

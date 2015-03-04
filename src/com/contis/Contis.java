@@ -70,7 +70,8 @@ public class Contis {
             System.exit(0);
         } else if (menuIndex < 1 || menuIndex > 4) {
             System.out.println("Please enter number between 1 and 4");
-            readMenuInput();
+            int input = readMenuInput();
+            routeMenu(input);
         }
     }
 

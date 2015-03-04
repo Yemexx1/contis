@@ -15,16 +15,18 @@ public class Contis {
         showMenu();
         int input = readMenuInput();
         routeMenu(input);
-//        compare("aaaaa", "abdee");
+        showMenu();
     }
 
     public static void showMenu() {
 
-        String[] menuItems = {"Exercise One", "Exercise Two", "Exercise Three", "Exercise Four"};
+        String[] menuItems = {"Exercise One", "Exercise Two", "Exercise Three", "Exercise Four", "Exit"};
         int menuIndex = 0;
+        System.out.println("\nMenu\n=====================================================");
         for (String menuItem : menuItems) {
             System.out.println(++menuIndex + ". " + menuItem);
         }
+        System.out.println("=====================================================");
     }
 
     public static void routeMenu(int menuIndex) {
@@ -45,12 +47,27 @@ public class Contis {
             String key = sc.nextLine();
             System.out.println("Searching for key " + key);
             ArrayList permutations = getPermutations();
+            int found = search(permutations, key);
+            if (found == -1) {
+                System.out.println("Key not found");
+            } else {
+                System.out.println("Key found at " + found);
+            }
+        } else if (menuIndex == 4) {
+            System.out.println("\n**Search Permutations Recursively**\n");
+            System.out.println("Enter key to search:");
+            Scanner sc = new Scanner(System.in);
+            String key = sc.nextLine();
+            System.out.println("Searching for key " + key);
+            ArrayList permutations = getPermutations();
             int found = searchRecursive(permutations, key, 0, permutations.size());
             if (found == -1) {
                 System.out.println("Key not found");
             } else {
                 System.out.println("Key found at " + found);
             }
+        } else if (menuIndex == 5) {
+            System.exit(0);
         } else if (menuIndex < 1 || menuIndex > 4) {
             System.out.println("Please enter number between 1 and 4");
             readMenuInput();
